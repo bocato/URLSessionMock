@@ -18,6 +18,7 @@ let mockedResponse = HTTPURLResponse(url: mockURL, statusCode: 200, httpVersion:
 let mockedSession = MockedURLSession(data: nil, response: mockedResponse, error: nil)
 let mockedNetworkDispatcher = NetworkDispatcher(url: mockURL, session: mockedSession)
 let mockedPokemonServices = PokemonService(dispatcher: mockedNetworkDispatcher)
+```
 
 # *MockWithSwizzling* USAGE
 
