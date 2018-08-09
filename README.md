@@ -20,30 +20,51 @@ let mockedPokemonServices = PokemonService(dispatcher: mockedNetworkDispatcher)
 
 # *MockWithSwizzling* USAGE
 - Ex1:
+
 let data = "{}".data(using: String.Encoding.utf8)!
 try! URLSession.mockEvery(expression: "v2/pokemon/", body: data) 
 
 - Ex2:
+
 try! URLSession.mockEvery(expression: "v2/pokemon") { (url, headers) -> MockResponse in
+
    let error = NSError(domain: "test", code: 404, userInfo: nil)
+   
    return .failure(error: error)
+   
 }
 
+
 - Ex3:
+
 let jsonDictionary: [String: Any] =
+
             ["count": 949,
+            
              "results": [
+             
                 ["url": "https://pokeapi.co/api/v2/pokemon/1/",
+                
                 "name" :"bulbasaur"]
+                
                 ],
+                
              "next": "https://pokeapi.co/api/v2/pokemon/?limit=1&offset=1"]
+             
 let data = try! JSONSerialization.data(withJSONObject: jsonDictionary, options: .prettyPrinted)
+
 let url = URL(string: "https://pokeapi.co/api/v2/pokemon/?limit=150")!
+
 let request = URLRequest(url: url)
+
 URLSession.mockNext(request: request, body: data, delay: 1)
 
 
+
 - Then, remove the mocks with: 
+
 URLSession.removeAllMocks()
-or
+
+*or*
+
 URLSession.removeAllMocks(of: <your request>)
